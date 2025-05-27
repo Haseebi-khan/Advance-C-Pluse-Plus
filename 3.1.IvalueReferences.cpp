@@ -1,6 +1,62 @@
-// #include <iostream>
+#include <iostream>
 
-// using namespace std;
+using namespace std;
+
+// lvalue reference:
+// An lvalue is an expression that will appear on the left-hand side or on the right-hand side of an assignment. such as i = 10;
+// Simply, a variable or object that has a name and memory address.
+// It uses one ampersand (&).
+
+int &getValue()
+{
+    static int value = 10;
+    return value;
+}
+
+void setValue(int &value)
+{
+    cout << "L Values\n";
+}
+
+void setValue(const int &value)
+{
+    cout << "R Values\n";
+}
+
+void show(string &name)
+{
+    cout << name << endl;
+    cout << "L Values\n";
+}
+
+void show(const string &name)
+{
+    cout << name << endl;
+    cout << "R Values\n";
+}
+
+int main()
+{
+    int i = 10;
+
+    cout << "Value : " << getValue() << endl;
+    getValue() = 40;
+    cout << "Value : " << getValue() << endl;
+
+    setValue(i); // setValue func
+
+    setValue(10); // const setValue func
+
+    string fname = "Haseeb ";
+    string lname = "Khan";
+
+    string name = fname + lname;
+
+    show(fname + lname); // const show func
+    show(name);          // show func
+
+    return 0;
+}
 
 // int main()
 // {
@@ -46,37 +102,34 @@
 //     return 0;
 // }
 
-#include <iostream>
+// #include <iostream>
 
-using namespace std;
+// using namespace std;
 
-struct RefHolder
-{
-    const int &&m_x;
-    RefHolder(int &&x) : m_x((int &&)x) {}
-    RefHolder(const RefHolder &&other) : m_x((int &&)other.m_x) {}
-};
+// struct RefHolder
+// {
+//     const int &&m_x;
+//     RefHolder(int &&x) : m_x((int &&)x) {}
+//     RefHolder(const RefHolder &&other) : m_x((int &&)other.m_x) {}
+// };
 
-int addOne(const int &&ref)
-{
-    return ref + 1;
-}
+// int addOne(const int &&ref)
+// {
+//     return ref + 1;
+// }
 
-int main()
-{
-    int x = 2;
-    const RefHolder refHolder((int &&)x);
-    const RefHolder otherRefHolder((RefHolder &&)refHolder);
-    int newx = addOne((int &&)refHolder.m_x);
-    // refHolder.m_x = addOne((int &&)refHolder.m_x);
-    // refHolder.m_x = addOne(refHolder.m_x);BF
+// int main()
+// {
+//     int x = 2;
+//     const RefHolder refHolder((int &&)x);
+//     const RefHolder otherRefHolder((RefHolder &&)refHolder);
+//     int newx = addOne((int &&)refHolder.m_x);
+//     // refHolder.m_x = addOne((int &&)refHolder.m_x);
+//     // refHolder.m_x = addOne(refHolder.m_x);BF
 
+//     cout << "newx: " << newx << endl;
+//     cout << "Refholder: " << refHolder.m_x << endl;
+//     cout << "Ohter Refholder: " << otherRefHolder.m_x << endl;
 
-    cout << "newx: " << newx << endl;
-    cout << "Refholder: " << refHolder.m_x << endl;
-    cout << "Ohter Refholder: " << otherRefHolder.m_x << endl;
-
-    return 0; 
-}
-
-
+//     return 0;
+// }

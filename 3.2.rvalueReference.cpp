@@ -1,6 +1,64 @@
-// #include <iostream>
+#include <iostream>
 
-// using namespace std;
+using namespace std;
+
+// rvalue reference:
+// An rvalue is an expression that will appear only on the right-hand side of an assignment. such as i = 10;
+// A variable or object has only a memory address (temporary objects).
+// It uses two ampersands (&&).
+
+
+int& getValue(){
+    static int value = 10;
+    return value;
+}
+
+void setValue(int &value)
+{
+    cout << "L Values\n";
+}
+
+void setValue(const int &value)
+{
+    cout << "R Values\n";
+}
+
+void show(string &name)
+{
+    cout << name << endl;
+    cout << "L Values\n";
+}
+
+void show(const string &name)
+{
+    cout << name << endl;
+    cout << "R Values\n";
+}
+
+int main()
+{
+    int i = 10;
+
+    cout << "Value : " << getValue() <<endl;
+    getValue() = 40;
+    cout << "Value : " << getValue() <<endl;
+
+    setValue(i);  // setValue func
+
+    setValue(10); // const setValue func
+
+    string fname = "Haseeb ";
+    string lname = "Khan";
+
+    string name = fname + lname;
+
+    show(fname + lname); // const show func
+    show(name);  // show func
+
+    return 0;
+}
+
+
 
 // double show(double x)
 // {
@@ -49,52 +107,57 @@
 //     return 0;
 // }
 
-#include <iostream>
+// rvalue reference:
+// An rvalue is an expression that will appear only on the right-hand side of an assignment.
+// A variable or object has only a memory address (temporary objects).
+// It uses two ampersands (&&).
 
-using namespace std;
+// #include <iostream>
 
-class Container
-{
-private:
-    int* m_data;
-public:
-    Container() : m_data(new int(42)) {
-        std::cout << "Default constructor\n";
-    }
+// using namespace std;
 
-    // Copy constructor
-    Container(const Container& other) : m_data(new int(*other.m_data)) {
-        std::cout << "Copy constructor\n";
-    }
+// class Container
+// {
+// private:
+//     int* m_data;
+// public:
+//     Container() : m_data(new int(42)) {
+//         std::cout << "Default constructor\n";
+//     }
 
-    // Move constructor
-    Container(Container&& other) noexcept : m_data(other.m_data) {
-        other.m_data = nullptr;
-        std::cout << "Move constructor\n";
-    }
+//     // Copy constructor
+//     Container(const Container& other) : m_data(new int(*other.m_data)) {
+//         std::cout << "Copy constructor\n";
+//     }
 
-    ~Container() {
-        delete m_data;
-        std::cout << "Destructor\n";
-    }
-    void value(){
-        cout << "M_Data: " << *m_data << endl;
-    }
-};
+//     // Move constructor
+//     Container(Container&& other) noexcept : m_data(other.m_data) {
+//         other.m_data = nullptr;
+//         std::cout << "Move constructor\n";
+//     }
 
-// Factory function (must return by value to trigger move)
-Container makeContainer() {
-    return Container(); // temporary object — an rvalue
-}
+//     ~Container() {
+//         delete m_data;
+//         std::cout << "Destructor\n";
+//     }
+//     void value(){
+//         cout << "M_Data: " << *m_data << endl;
+//     }
+// };
 
-int main()
-{
+// // Factory function (must return by value to trigger move)
+// Container makeContainer() {
+//     return Container(); // temporary object — an rvalue
+// }
 
-    const Container c1 = makeContainer(); // Move constructor is called, then c1 becomes const
-    Container copy{c1};                   // c1 is const => Copy constructor is used
-    Container c2 = makeContainer();       // Move constructor is called
-    Container steal{std::move(c2)};       // std::move makes c2 into an rvalue => Move constructor
-    steal.value();
+// int main()
+// {
 
-    return 0;
-}
+//     const Container c1 = makeContainer(); // Move constructor is called, then c1 becomes const
+//     Container copy{c1};                   // c1 is const => Copy constructor is used
+//     Container c2 = makeContainer();       // Move constructor is called
+//     Container steal{std::move(c2)};       // std::move makes c2 into an rvalue => Move constructor
+//     steal.value();
+
+//     return 0;
+// }

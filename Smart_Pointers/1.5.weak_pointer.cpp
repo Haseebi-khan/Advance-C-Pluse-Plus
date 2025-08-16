@@ -54,11 +54,11 @@ int main()
         shared_ptr<int> sp = make_shared<int>(42);
         wp = sp;
 
-        cout << "Inside block:" << endl;
+        cout << "\n\nInside block:" << endl;
         cout << "Is expired? " << wp.expired() << endl;  // false
     }
 
-    cout << "Outside block:" << endl;
+    cout << "\n\nOutside block:" << endl;
     cout << "Is expired? " << wp.expired() << endl;  // true (sp is destroyed)
 
 // =============================================================================================================

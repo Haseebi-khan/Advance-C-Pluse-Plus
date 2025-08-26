@@ -39,8 +39,6 @@ int main()
     cout << ((perms & fs::perms::owner_exec) != fs::perms::none ? "x" : "-");
     cout << endl;
 
-    
-    
-    
+
     return 0;
 }

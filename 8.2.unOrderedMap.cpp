@@ -83,5 +83,11 @@ int main()
         cout << "Name: " << name << "      Population: " << city.Population << " latitude: " << city.latitude << " Longitude: " << city.Longitude << endl;
     }
 
+
+    unordered_map<uint64_t,CityRecordes> newCities{};
+
+    cout << "\n\nSize of NewCities Instance: " << sizeof(newCities) <<endl;
+    cout << "Size of NewCities Instance: " << sizeof(int) <<endl;
+
     return 0;
 }
